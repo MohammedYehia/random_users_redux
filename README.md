@@ -1,9 +1,9 @@
 THIS IS ONLY AN ATTEMPT TO USE REDUX AND MAKE A SIMPLE ASYNC REQUEST USING REDUX-THUNK
 
-APIS:
+APIs:
 >https://randomuser.me/
 
-TECH AND TOOLS:
+TECHs, TOOLs AND DRINKs:
 >create-react-app
 
 >redux
