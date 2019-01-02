@@ -1,28 +1,52 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { fetchUsersData } from './store/actions';
 import './App.css';
 
 class App extends Component {
+
+  componentDidMount(){
+    this.props.toGetUsers();
+  }
+
   render() {
+    const { users, loading, err } = this.props;
+
+    if(loading){
+      return <div className="App">LOADING...</div>;
+    }
+
+    if(err){
+      return <h1>BIG ERROR *_*</h1>
+    }
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <ul>
+          {users.map(user =>( 
+            <li key={user.id.value}>
+              {user.gender} || {user.name.first} || {user.name.last}
+            </li>))}
+        </ul>         
       </div>
     );
   }
 }
 
-export default App;
+//Assign redux global state to the component props
+const mapStateToProps = state => {
+  return {
+    users: state.reducer.users,
+    loading: state.reducer.loading,
+    err: state.reducer.err
+  }
+}
+
+//Assign redux dispath actions to the component props
+const mapDispatchToState = dispatch => {
+  return {
+    toGetUsers: () => dispatch(fetchUsersData())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToState)(App);
