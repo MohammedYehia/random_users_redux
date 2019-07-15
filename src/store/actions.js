@@ -8,7 +8,7 @@ export const fetchUsersData = () => {
         //first step to display the loading image
         dispatch(fetchDataBegin())
         return fetch('https://randomuser.me/api/?results=5')
-            //becarful that fetch may not handle http errors
+            //be careful that fetch may not handle http errors
             //so you may need a fuction to handle http NOT OK
             .then(users => users.json())
             .then(users => dispatch(fetchDataSuccess(users.results)))
